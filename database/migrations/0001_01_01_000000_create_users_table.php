@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+
+            // tambahan untuk sistem absensi
+            $table->string('nip')->nullable();
+            $table->string('unit')->nullable();
+            $table->enum('role', ['admin','peserta'])->default('peserta');
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -42,8 +48,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
