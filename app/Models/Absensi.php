@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'rapat_id',
+        'waktu_scan',
+        'status',
+        'nama',
+        'jabatan',
+        'tanda_tangan',
+    ];
 
     public $timestamps = false;
-
-    protected $fillable = [
-        'rapat_id',
-        'user_id',
-        'waktu_absen',
-    ];
 }
+
 
