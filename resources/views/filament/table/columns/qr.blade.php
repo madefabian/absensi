@@ -2,28 +2,25 @@
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 
-$token = $getState();
+$record = $record ?? ($getRecord() ?? null);
 
-$url = null;
-$qrcode = null;
-
-if($token){
-    $url = url('/absen/'.$token);
-
-    $options = new QROptions([
-        'outputType' => QRCode::OUTPUT_IMAGE_PNG,
-    ]);
-
-    $qrcode = (new QRCode($options))->render($url);
+if (!$record || !$record->qr_token) {
+    echo '<span class="text-gray-400">QR belum ada</span>';
+    return;
 }
+
+$options = new QROptions([
+    'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+    'eccLevel' => QRCode::ECC_L,
+    'scale' => 4,
+]);
+
+$url = url('/absensi/' . $record->qr_token);
+$image = (new QRCode($options))->render($url);
 @endphp
 
-@if($qrcode)
-<div class="flex flex-col gap-1 items-start">
-    <img src="{{ $qrcode }}" width="110" class="bg-white p-2 rounded border" />
-</div>
-@else
-<span class="text-xs text-gray-400">
-    Tidak ada QR
-</span>
-@endif
+<img
+    src="{{ $image }}"
+    alt="QR Code"
+    style="width:80px;height:80px"
+/>
