@@ -37,6 +37,6 @@ class Rapat extends Model
      */
     public function getQrUrlAttribute(): string
     {
-        return url('https://192.168.21.144/absen/' . $this->qr_token);
+        return url('192.168.21.144/absen/' . $this->qr_token);
     }
 }
