@@ -20,15 +20,23 @@ class Rapat extends Model
         'qr_token',
     ];
 
+    /**
+     * Auto generate QR token saat create
+     */
     protected static function booted()
     {
         static::creating(function ($rapat) {
-            $rapat->qr_token = Str::uuid();
+            if (empty($rapat->qr_token)) {
+                $rapat->qr_token = (string) Str::uuid();
+            }
         });
     }
-    public function getQrUrlAttribute(): string
-{
-    return url('/absensi/' . $this->qr_token);
-}
 
+    /**
+     * Accessor URL QR Absensi
+     */
+    public function getQrUrlAttribute(): string
+    {
+        return url('/absen/' . $this->qr_token);
+    }
 }

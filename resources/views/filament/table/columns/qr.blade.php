@@ -1,25 +1,29 @@
 @php
-    use chillerlan\QRCode\QRCode;
-    use chillerlan\QRCode\QROptions;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
+
+$token = $getState();
+
+$url = null;
+$qrcode = null;
+
+if($token){
+    $url = url('/absen/'.$token);
 
     $options = new QROptions([
-        'outputType' => QRCode::OUTPUT_MARKUP_SVG,
-        'eccLevel' => QRCode::ECC_L,
+        'outputType' => QRCode::OUTPUT_IMAGE_PNG,
     ]);
 
-    $qrcode = (new QRCode($options))->render($record->qr_url);
+    $qrcode = (new QRCode($options))->render($url);
+}
 @endphp
 
-<div class="space-y-3">
-    <div class="text-sm text-gray-600">
-        Scan QR ini untuk absensi rapat
-    </div>
-
-    <div class="p-4 bg-white border rounded w-fit">
-        {!! $qrcode !!}
-    </div>
-
-    <div class="text-xs break-all text-gray-500">
-        {{ $record->qr_url }}
-    </div>
+@if($qrcode)
+<div class="flex flex-col gap-1 items-start">
+    <img src="{{ $qrcode }}" width="110" class="bg-white p-2 rounded border" />
 </div>
+@else
+<span class="text-xs text-gray-400">
+    Tidak ada QR
+</span>
+@endif
