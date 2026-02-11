@@ -2,18 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
-    public function rapat()
-{
-    return $this->belongsTo(Rapat::class);
+    protected $fillable = [
+        'user_id',
+        'rapat_id',
+        'waktu_scan',
+        'status',
+        'nama',
+        'jabatan',
+        'tanda_tangan',
+    ];
+
+    public $timestamps = false;
 }
 
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
 
-}

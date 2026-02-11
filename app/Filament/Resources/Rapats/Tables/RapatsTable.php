@@ -30,10 +30,10 @@ class RapatsTable
                 IconColumn::make('qr_status')
                     ->label('QR Aktif')
                     ->boolean(),
+                ViewColumn::make('qr')
+                    ->label('QR Code')
+                    ->view('filament.table.columns.qr'),
 
-                ViewColumn::make('qr_token')
-                    ->label('QR')
-                    ->view('filament.table.columns.qr')
             ]);
     }
 }
