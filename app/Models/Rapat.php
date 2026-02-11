@@ -35,8 +35,8 @@ class Rapat extends Model
     /**
      * Accessor URL QR Absensi
      */
-    public function getQrUrlAttribute(): string
-    {
-        return url('192.168.21.144/absen/' . $this->qr_token);
-    }
+public function getQrUrlAttribute(): string
+{
+    return config('app.url') . '/absensi/' . $this->qr_token;
+}
 }
