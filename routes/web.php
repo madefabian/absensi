@@ -11,11 +11,9 @@ use App\Http\Controllers\AuthController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/login', [AuthController::class, 'login'])
-    ->name('login');
+Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])->middleware('auth');
 
-Route::post('/login', [AuthController::class, 'authenticate'])
-    ->name('login.process');
+Route::post('/absensi/{token}', [AbsensiController::class, 'store'])->middleware('auth');
 
 Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
@@ -28,30 +26,9 @@ Route::post('/logout', [AuthController::class, 'logout'])
 */
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])
         ->name('absensi.scan');
-
-    Route::post('/absensi/{token}', [AbsensiController::class, 'store']);
-
 });
-
-
-/*
-|--------------------------------------------------------------------------
-| QR RAPAT
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/rapat/qr/{token}', [RapatQrController::class, 'show'])
-    ->name('rapat.qr');
-
-
-/*
-|--------------------------------------------------------------------------
-| HOME
-|--------------------------------------------------------------------------
-*/
 
 Route::get('/', function () {
     return view('welcome');

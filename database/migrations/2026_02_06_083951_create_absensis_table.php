@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('absensis', function (Blueprint $table) {
@@ -17,7 +14,6 @@ return new class extends Migration
             $table->foreignId('rapat_id')->constrained()->cascadeOnDelete();
             $table->timestamp('waktu_scan');
             $table->enum('status',['hadir','telat']);
-            
         });
     }
 

@@ -2,22 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Absensi extends Model
 {
     protected $fillable = [
-        'user_id',
-        'rapat_id',
-        'waktu_scan',
-        'status',
-        'nama',
-        'jabatan',
-        'tanda_tangan',
+        'uuid',
+        'judul',
+        'tanggal',
+        'nama_pengisi',
+        'status'
     ];
 
-    public $timestamps = false;
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = (string) Str::uuid();
+        });
+    }
 }
-
-
