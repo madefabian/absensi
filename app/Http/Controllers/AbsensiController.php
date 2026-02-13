@@ -4,38 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Absensi;
+use App\Models\Rapat;
 
 class AbsensiController extends Controller
 {
-   public function scan($token)
-{
-    $rapat = \App\Models\Absensi::where('uuid', $token)->first();
+    /**
+     * Tampilkan form absensi berdasarkan QR token
+     */
+    public function scan($token)
+    {
+        $rapat = Rapat::where('qr_token', $token)->first();
 
-    if (!$rapat) {
-        return "QR tidak valid";
+        if (!$rapat) {
+            return view('absensi.qr-tidak-valid');
+        }
+
+        return view('absensi.form', compact('rapat'));
     }
 
-    return view('absensi.form', compact('rapat'));
-}
+    /**
+     * Simpan absensi peserta rapat
+     */
+    public function store(Request $request, $token)
+    {
+        $rapat = Rapat::where('qr_token', $token)->first();
 
-public function store(Request $request, $token)
-{
-    $rapat = \App\Models\Absensi::where('uuid', $token)->first();
+        if (!$rapat) {
+            return view('absensi.qr-tidak-valid');
+        }
 
-    if (!$rapat) {
-        return "QR tidak valid";
+        $request->validate([
+            'nama' => 'required|string',
+        ]);
+
+        Absensi::create([
+            'rapat_id' => $rapat->id,
+            'waktu_scan' => now(),
+            'status' => 'hadir',
+            'nama' => $request->nama,
+        ]);
+
+        return view('absensi.berhasil');
     }
-
-    $request->validate([
-        'nama' => 'required',
-    ]);
-
-    $rapat->update([
-        'nama_pengisi' => $request->nama,
-        'status' => 'hadir',
-    ]);
-
-    return "Absensi berhasil";
-}
-
 }
