@@ -49,4 +49,12 @@ class Rapat extends Model
     {
         return config('app.url') . '/absensi/' . $this->qr_token;
     }
+
+    /**
+     * Relasi ke Absensi (One to Many)
+     */
+    public function absensis()
+    {
+        return $this->hasMany(Absensi::class);
+    }
 }

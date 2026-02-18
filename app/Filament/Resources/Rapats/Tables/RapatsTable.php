@@ -6,6 +6,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Actions\Action;
 use Carbon\Carbon;
 
 
@@ -58,6 +59,7 @@ class RapatsTable
                     ->view('filament.table.columns.qr'),
 
             ])
+            ->recordUrl(fn ($record) => route('filament.admin.resources.rapats.view', $record))
             ->defaultSort('tanggal', 'asc')
             ->striped();
     }

@@ -35,13 +35,18 @@ class AbsensiController extends Controller
 
         $request->validate([
             'nama' => 'required|string',
+            'jabatan' => 'required|string',
+            'status' => 'required|in:hadir,sakit,izin',
         ]);
 
         Absensi::create([
+            'user_id' => auth()->id(),
             'rapat_id' => $rapat->id,
             'waktu_scan' => now(),
-            'status' => 'hadir',
+            'status' => $request->status,
             'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
+            'tanda_tangan' => $request->tanda_tangan,
         ]);
 
         return view('absensi.berhasil');

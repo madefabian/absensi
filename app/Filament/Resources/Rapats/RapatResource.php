@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Rapats;
 use App\Filament\Resources\Rapats\Pages\CreateRapat;
 use App\Filament\Resources\Rapats\Pages\EditRapat;
 use App\Filament\Resources\Rapats\Pages\ListRapats;
+use App\Filament\Resources\Rapats\Pages\ViewRapat;
 use App\Filament\Resources\Rapats\Schemas\RapatForm;
 use App\Filament\Resources\Rapats\Tables\RapatsTable;
 use App\Models\Rapat;
@@ -44,6 +45,7 @@ class RapatResource extends Resource
         return [
             'index' => ListRapats::route('/'),
             'create' => CreateRapat::route('/create'),
+            'view' => ViewRapat::route('/{record}'),
             'edit' => EditRapat::route('/{record}/edit'),
         ];
     }
