@@ -17,7 +17,7 @@
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
             <div class="mb-8">
-                <a href="{{ route('rapat.index') }}" class="text-[#9CAF88] hover:text-[#8a9975] text-sm mb-4 inline-block font-medium">
+                <a href="{{ route('welcome') }}" class="text-[#9CAF88] hover:text-[#8a9975] text-sm mb-4 inline-block font-medium">
                     ← Kembali ke Daftar Rapat
                 </a>
                 <h1 class="text-4xl font-bold text-gray-900">{{ $rapat->judul }}</h1>

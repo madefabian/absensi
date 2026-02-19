@@ -28,9 +28,16 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+
+            // ✅ NAMA PANEL
+            ->brandName('Absensi Rapat')
+            ->title('Absensi Rapat Admin')
+
+            // ✅ WARNA BIRU TUA
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#1E3A8A'),
             ])
+
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
