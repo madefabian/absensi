@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class Rapat extends Model
@@ -33,10 +34,27 @@ class Rapat extends Model
     }
 
     /**
+     * Scope untuk menampilkan rapat yang belum melewati tanggalnya
+     */
+    public function scopeUpcoming(Builder $query): Builder
+    {
+        return $query->where('tanggal', '>=', now()->toDateString())
+                     ->orderBy('tanggal', 'asc');
+    }
+
+    /**
      * Accessor URL QR Absensi
      */
     public function getQrUrlAttribute(): string
     {
-        return url('192.168.21.144/absen/' . $this->qr_token);
+        return config('app.url') . '/absensi/' . $this->qr_token;
+    }
+
+    /**
+     * Relasi ke Absensi (One to Many)
+     */
+    public function absensis()
+    {
+        return $this->hasMany(Absensi::class);
     }
 }

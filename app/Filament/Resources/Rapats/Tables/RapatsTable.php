@@ -6,6 +6,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Actions\Action;
+use Carbon\Carbon;
 
 
 class RapatsTable
@@ -15,25 +17,50 @@ class RapatsTable
         return $table
             ->columns([
                 TextColumn::make('judul')
+                    ->label('📋 Judul Rapat')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->color('primary')
+                    ->wrap(),
 
                 TextColumn::make('tanggal')
-                    ->date()
-                    ->sortable(),
+                    ->label('📅 Tanggal')
+                    ->date('d M Y')
+                    ->sortable()
+                    ->badge()
+                    ->color('info'),
 
-                TextColumn::make('jam_mulai'),
-                TextColumn::make('jam_selesai'),
+                TextColumn::make('jam_mulai')
+                    ->label('🕐 Jam Mulai')
+                    ->alignment('center')
+                    ->icon('heroicon-o-clock'),
 
-                TextColumn::make('lokasi'),
+                TextColumn::make('jam_selesai')
+                    ->label('🕑 Jam Selesai')
+                    ->alignment('center')
+                    ->icon('heroicon-o-clock'),
+
+                TextColumn::make('lokasi')
+                    ->label('📍 Lokasi')
+                    ->searchable()
+                    ->icon('heroicon-o-map-pin'),
 
                 IconColumn::make('qr_status')
-                    ->label('QR Aktif')
-                    ->boolean(),
+                    ->label('🔲 QR')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('danger'),
+
                 ViewColumn::make('qr')
                     ->label('QR Code')
                     ->view('filament.table.columns.qr'),
 
-            ]);
+            ])
+            ->recordUrl(fn ($record) => route('filament.admin.resources.rapats.view', $record))
+            ->defaultSort('tanggal', 'asc')
+            ->striped();
     }
 }

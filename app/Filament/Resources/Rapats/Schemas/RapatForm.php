@@ -13,33 +13,53 @@ class RapatForm
         return $schema->schema([
 
             Forms\Components\TextInput::make('judul')
+                ->label('📋 Judul Rapat')
+                ->placeholder('Contoh: Rapat Evaluasi Bulanan')
                 ->required()
-                ->maxLength(255),
+                ->maxLength(255)
+                ->prefixIcon('heroicon-o-pencil-square')
+                ->helperText('Judul harus deskriptif dan mudah dipahami')
+                ->columnSpanFull(),
 
             Forms\Components\DatePicker::make('tanggal')
-                ->required(),
+                ->label('📅 Tanggal Rapat')
+                ->required()
+                ->minDate(today())
+                ->prefixIcon('heroicon-o-calendar-days')
+                ->helperText('Pilih tanggal rapat'),
 
             Forms\Components\TimePicker::make('jam_mulai')
-                ->required(),
+                ->label('🕐 Jam Mulai')
+                ->required()
+                ->prefixIcon('heroicon-o-clock'),
 
             Forms\Components\TimePicker::make('jam_selesai')
-                ->required(),
+                ->label('🕑 Jam Selesai')
+                ->required()
+                ->prefixIcon('heroicon-o-clock'),
 
             Forms\Components\TextInput::make('lokasi')
-                ->required(),
+                ->label('📍 Lokasi Rapat')
+                ->placeholder('Contoh: Ruang Meeting A, Lantai 2')
+                ->required()
+                ->prefixIcon('heroicon-o-map-pin')
+                ->helperText('Lokasi tempat rapat akan diadakan')
+                ->columnSpanFull(),
 
             Forms\Components\Toggle::make('qr_status')
-                ->label('QR Aktif')
+                ->label('🔲 Aktifkan QR Code Absensi')
+                ->helperText('QR code akan digunakan untuk scan absensi peserta saat rapat')
                 ->onColor('success')
-                ->offColor('danger'),
+                ->offColor('danger')
+                ->columnSpanFull(),
 
             ViewField::make('qr_preview')
-                ->label('QR Code')
+                ->label('QR Code Preview')
                 ->view('filament.table.columns.qr')
                 ->dehydrated(false)
-                ->visible(fn ($record) => $record !== null),
+                ->visible(fn ($record) => $record !== null)
+                ->columnSpanFull(),
 
-
-        ]);
+        ])->columns(3);
     }
 }
