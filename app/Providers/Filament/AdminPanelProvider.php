@@ -29,11 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
 
-            // ✅ NAMA PANEL
             ->brandName('Absensi Rapat')
-            ->title('Absensi Rapat Admin')
 
-            // ✅ WARNA BIRU TUA
             ->colors([
                 'primary' => Color::hex('#1E3A8A'),
             ])

@@ -81,7 +81,5 @@
             QR Code tidak ditemukan atau sudah dinonaktifkan.
             Silakan hubungi admin atau scan ulang QR yang benar.
         </p>
-
-        <a href="/" class="button">Kembali ke Beranda</a>
     </div>
 </body>
