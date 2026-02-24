@@ -1,7 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbsensiController;
-<<<<<<< HEAD
 use App\Http\Controllers\RapatQrController;
 
 Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])
@@ -11,7 +10,6 @@ Route::post('/absensi/{token}', [AbsensiController::class, 'store']);
 
 Route::get('/rapat/qr/{token}', [RapatQrController::class, 'show'])
     ->name('rapat.qr');
-=======
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StoreController;
@@ -66,17 +64,13 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::middleware('auth')->group(function () {
     //
 });
->>>>>>> 70be02f57cb47ceae4e81711a054e31c8e686253
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
-=======
 Route::post('/store', [StoreController::class, 'store'])->name('store');
 
 
 
 
->>>>>>> 70be02f57cb47ceae4e81711a054e31c8e686253

@@ -17,7 +17,7 @@ class ListRapats extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('+ Buat Rapat Baru')
+                ->label('Buat Rapat Baru')
                 ->icon('heroicon-o-plus')
                 ->button(),
         ];
