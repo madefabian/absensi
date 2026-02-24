@@ -91,8 +91,6 @@
             Data absensi Anda telah berhasil dicatat dalam sistem.
         </p>
     </div>
-
-    <a href="/" class="button">← Kembali</a>
 </div>
 
 </body>

@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('rapats', function (Blueprint $table) {
@@ -19,14 +16,11 @@ return new class extends Migration
             $table->time('jam_selesai');
             $table->string('lokasi');
             $table->boolean('qr_status')->default(true);
-            $table->uuid('qr_token')->unique(); // ✅ SATU AJA, UUID
+            $table->uuid('qr_token')->unique();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('rapats');

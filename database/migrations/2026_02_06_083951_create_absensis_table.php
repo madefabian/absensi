@@ -10,16 +10,17 @@ return new class extends Migration
     {
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('rapat_id')->constrained()->cascadeOnDelete();
+            $table->string('nama')->nullable();
+            $table->string('jabatan')->nullable();
             $table->timestamp('waktu_scan');
-            $table->enum('status',['hadir','telat']);
+            $table->enum('status', ['hadir', 'telat']);
+            $table->longText('tanda_tangan')->nullable();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('absensis');

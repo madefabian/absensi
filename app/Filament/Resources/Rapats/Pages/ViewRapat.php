@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\Rapats\Pages;
 
+use App\Exports\AbsensiExport;
 use App\Filament\Resources\Rapats\RapatResource;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\BadgeColumn;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ViewRapat extends ViewRecord
 {
@@ -19,6 +21,14 @@ class ViewRapat extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+  Action::make('export')
+    ->label('📥 Export Excel')
+    ->color('success')
+    ->icon('heroicon-o-arrow-down-tray')
+    ->visible(fn () => $this->record->absensis()->exists())
+    ->url(fn () => route('rapat.export', $this->record))
+    ->openUrlInNewTab(),
+
             EditAction::make()
                 ->icon('heroicon-o-pencil')
                 ->color('warning'),
@@ -28,7 +38,6 @@ class ViewRapat extends ViewRecord
     public function table(Tables\Table $table): Tables\Table
     {
         return $table
-            ->relationship('absensis')
             ->columns([
                 TextColumn::make('nama')
                     ->label('👤 Nama')
@@ -45,30 +54,30 @@ class ViewRapat extends ViewRecord
                     ->dateTime('d/m/Y H:i:s')
                     ->sortable(),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label('📊 Status')
-                    ->colors([
-                        'success' => 'hadir',
-                        'danger' => 'sakit',
-                        'warning' => 'izin',
-                    ])
+                    ->badge()
+                    ->color(fn (string $state): string => match($state) {
+                        'hadir' => 'success',
+                        'telat' => 'warning',
+                        default => 'gray',
+                    })
                     ->formatStateUsing(fn (string $state): string => match($state) {
                         'hadir' => '✓ Hadir',
-                        'sakit' => '🏥 Sakit',
-                        'izin' => '📝 Izin',
+                        'telat' => '⏰ Terlambat',
                         default => $state,
                     })
                     ->sortable(),
 
                 ImageColumn::make('tanda_tangan')
                     ->label('✍️ TTD')
-                    ->circular()
                     ->height(50)
-                    ->width(50),
+                    ->width(80)
+                    ->defaultImageUrl(fn ($record) => null)
+                    ->visibility('public'),
             ])
-            ->defaultSort('waktu_scan', 'desc')
+            ->defaultSort('waktu_scan', 'asc')
             ->striped()
-            ->paginated([5, 10, 25, 50])
-            ->searchable(['nama', 'jabatan']);
+            ->paginated([5, 10, 25, 50]);
     }
 }
