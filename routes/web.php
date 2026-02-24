@@ -1,5 +1,9 @@
 <?php
 
+use App\Exports\AbsensiExport;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\AuthController;
+use App\Models\Rapat;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\RapatQrController;
@@ -62,6 +66,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
+<<<<<<< HEAD
 Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])
     ->name('absensi.scan');
 
@@ -72,3 +77,7 @@ Route::get('/rapat/qr/{token}', [RapatQrController::class, 'show'])
     ->name('rapat.qr');
 
 Route::post('/store', [StoreController::class, 'store'])->name('store');
+=======
+Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])->name('absensi.scan');
+Route::post('/absensi/{token}', [AbsensiController::class, 'store'])->name('absensi.store');
+>>>>>>> 6e84a4abc956863b8c820cda601803c568dd41a9
