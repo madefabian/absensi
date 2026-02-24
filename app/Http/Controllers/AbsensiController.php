@@ -30,7 +30,9 @@ class AbsensiController extends Controller
         $request->validate([
             'nama'         => 'required|string|max:255',
             'jabatan'      => 'required|string|max:255',
-            'status'       => 'required|in:hadir,telat',
+            'email'        => 'required|email|max:255',
+            'no_hp'        => 'required|string|max:20',
+            'status'       => 'required|in:hadir,telat,sakit,izin',
             'tanda_tangan' => 'nullable|string',
         ]);
 
@@ -41,6 +43,8 @@ class AbsensiController extends Controller
             'status'       => $request->status,
             'nama'         => $request->nama,
             'jabatan'      => $request->jabatan,
+            'email'        => $request->email,
+            'no_hp'        => $request->no_hp,
             'tanda_tangan' => $request->tanda_tangan,
         ]);
 
