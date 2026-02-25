@@ -81,6 +81,25 @@
             box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.1);
         }
 
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #9CAF88;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.1);
+        }
+
         canvas {
             border: 2px dashed #9CAF88;
             width: 100%;
@@ -209,6 +228,16 @@
         <div class="form-group">
             <label for="jabatan">Jabatan</label>
             <input type="text" id="jabatan" name="jabatan" placeholder="Masukkan jabatan Anda" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+        </div>
+
+        <div class="form-group">
+            <label for="no_hp">Nomor HP</label>
+            <input type="text" id="no_hp" name="no_hp" placeholder="Masukkan nomor HP Anda" required>
         </div>
 
         <div class="form-group">

@@ -15,7 +15,9 @@ class Absensi extends Model
         'status',
         'nama',
         'jabatan',
-        'tanda_tangan'
+        'tanda_tangan',
+        'no_hp',
+        'email',
     ];
 
     public $timestamps = false;
