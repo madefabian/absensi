@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AbsensiController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\RapatQrController;
 use App\Http\Controllers\RapatController;
 use App\Http\Controllers\StoreController;
