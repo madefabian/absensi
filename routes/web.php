@@ -29,17 +29,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| Export Absensi (butuh login)
-|--------------------------------------------------------------------------
-*/
-
-Route::get('/rapats/{rapat}/export', function (Rapat $rapat) {
-    $fileName = 'absensi_' . str($rapat->judul)->slug() . '_' . now()->format('d-m-Y') . '.xlsx';
-    return Excel::download(new AbsensiExport($rapat), $fileName);
-})->name('rapat.export')->middleware('auth');
-
-/*
-|--------------------------------------------------------------------------
 | Absensi via QR Code (Publik)
 |--------------------------------------------------------------------------
 */

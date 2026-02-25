@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->string('jabatan')->nullable();
             $table->timestamp('waktu_scan');
-            $table->enum('status', ['hadir', 'telat']);
+            $table->enum('status', ['hadir', 'sakit', 'izin']);
             $table->longText('tanda_tangan')->nullable();
         });
     }
