@@ -242,20 +242,6 @@
 <body>
     <div class="wrapper">
 
-        {{-- Nav --}}
-        @if (Route::has('login'))
-            <nav>
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="primary">Dashboard</a>
-                @else
-                    <a href="{{ route('login') }}">Masuk</a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="primary">Daftar</a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
-
         {{-- Main Card --}}
         <div class="card">
             <div class="icon-wrap">

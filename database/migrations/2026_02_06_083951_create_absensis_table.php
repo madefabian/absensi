@@ -13,10 +13,11 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('rapat_id')->constrained()->cascadeOnDelete();
+            $table->string('nip')->nullable();
             $table->string('nama')->nullable();
             $table->string('jabatan')->nullable();
             $table->timestamp('waktu_scan');
-            $table->enum('status', ['hadir', 'telat']);
+            $table->enum('status', ['hadir', 'sakit', 'izin']);
             $table->longText('tanda_tangan')->nullable();
         });
     }

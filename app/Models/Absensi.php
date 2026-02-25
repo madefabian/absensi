@@ -11,21 +11,18 @@ class Absensi extends Model
         'user_id',
         'rapat_id',
         'uuid',
-        'waktu_scan',
-        'status',
+        'nip',
         'nama',
         'jabatan',
+        'waktu_scan',
+        'status',
         'tanda_tangan',
-        'no_hp',
-        'email',
     ];
 
     public $timestamps = false;
 
     protected static function booted()
     {
-        parent::boot();
-
         static::creating(function ($model) {
             if (empty($model->uuid)) {
                 $model->uuid = (string) Str::uuid();
@@ -33,17 +30,11 @@ class Absensi extends Model
         });
     }
 
-    /**
-     * Relation ke User
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Relation ke Rapat
-     */
     public function rapat()
     {
         return $this->belongsTo(Rapat::class);

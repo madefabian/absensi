@@ -1,15 +1,15 @@
 <?php
 
-use App\Exports\AbsensiExport;
 use App\Http\Controllers\AbsensiController;
-use App\Http\Controllers\AuthController;
-use App\Models\Rapat;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\RapatQrController;
 use App\Http\Controllers\RapatController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\AuthController;
+use App\Exports\AbsensiExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Models\Rapat;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,24 +23,17 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Auth
+| Absensi via QR Code (Publik)
 |--------------------------------------------------------------------------
 */
 
-Route::get('/login', [AuthController::class, 'login'])
-    ->name('login')
-    ->middleware('guest');
-
-Route::post('/login', [AuthController::class, 'authenticate'])
-    ->middleware('guest');
-
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->name('logout')
-    ->middleware('auth');
+Route::get('/absensi/{token}', [AbsensiController::class, 'scan'])->name('absensi.scan');
+Route::post('/absensi/{token}', [AbsensiController::class, 'store'])->name('absensi.store');
+Route::get('/absensi/{token}/sudah-absen', [AbsensiController::class, 'sudahAbsen'])->name('absensi.sudah-absen');
 
 /*
 |--------------------------------------------------------------------------
-| Rapat (Perlu Login)
+| Export
 |--------------------------------------------------------------------------
 */
 
