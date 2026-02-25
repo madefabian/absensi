@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumnWidths, WithEvents
 {
@@ -34,7 +35,7 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
         $rows = [];
 
         // Header
-        $rows[] = ['No.', 'Nama', 'Jabatan', 'Waktu Scan', 'Status', 'Tanda Tangan'];
+        $rows[] = ['No.', 'NIP', 'Nama', 'Jabatan', 'Waktu Scan', 'Status', 'Tanda Tangan'];
 
         // Data
         $absensis = $this->rapat->absensis()->orderBy('waktu_scan', 'asc')->get();
@@ -42,6 +43,7 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
         foreach ($absensis as $index => $absensi) {
             $rows[] = [
                 $index + 1,
+                (string) ($absensi->nip ?? '-'),
                 $absensi->nama,
                 $absensi->jabatan,
                 $absensi->waktu_scan
@@ -63,6 +65,11 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
     {
         $lastRow = $this->rapat->absensis->count() + 1;
 
+        // Format kolom NIP sebagai teks supaya tidak jadi scientific notation
+        $sheet->getStyle('B2:B' . $lastRow)
+            ->getNumberFormat()
+            ->setFormatCode(NumberFormat::FORMAT_TEXT);
+
         return [
             1 => [
                 'font'      => ['bold' => true, 'color' => ['rgb' => 'FFFFFF']],
@@ -72,7 +79,7 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
                     'vertical'   => Alignment::VERTICAL_CENTER,
                 ],
             ],
-            'A1:F' . $lastRow => [
+            'A1:G' . $lastRow => [
                 'borders' => [
                     'allBorders' => [
                         'borderStyle' => Border::BORDER_THIN,
@@ -88,11 +95,12 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
     {
         return [
             'A' => 6,
-            'B' => 25,
-            'C' => 20,
+            'B' => 22,
+            'C' => 25,
             'D' => 20,
-            'E' => 15,
+            'E' => 20,
             'F' => 15,
+            'G' => 15,
         ];
     }
 
@@ -104,8 +112,15 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
                 $row = 2;
 
                 foreach ($absensis as $absensi) {
+                    // Set ulang kolom NIP sebagai teks eksplisit
+                    $event->sheet->setCellValueExplicit(
+                        'B' . $row,
+                        (string) ($absensi->nip ?? '-'),
+                        \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
+                    );
+
                     $color = $absensi->status === 'hadir' ? 'E8F5E9' : 'FFF9C4';
-                    $event->sheet->getStyle('E' . $row)->applyFromArray([
+                    $event->sheet->getStyle('F' . $row)->applyFromArray([
                         'fill' => [
                             'fillType'   => Fill::FILL_SOLID,
                             'startColor' => ['rgb' => $color],
@@ -113,7 +128,7 @@ class DaftarAbsensiSheet implements FromArray, WithTitle, WithStyles, WithColumn
                     ]);
 
                     $ttdColor = $absensi->tanda_tangan ? 'E8F5E9' : 'FFEBEE';
-                    $event->sheet->getStyle('F' . $row)->applyFromArray([
+                    $event->sheet->getStyle('G' . $row)->applyFromArray([
                         'fill' => [
                             'fillType'   => Fill::FILL_SOLID,
                             'startColor' => ['rgb' => $ttdColor],

@@ -310,7 +310,7 @@
 
             <div class="form-group">
                 <label for="nip">Nomor Induk Pegawai (NIP) <span class="req">*</span></label>
-                <input type="text" id="nip" name="nip" placeholder="Contoh: 198803012015041001" required>
+                <input type="text" id="nip" name="nip" placeholder="Contoh: 198803012015041001" maxlength="18" inputmode="numeric" pattern="\d{1,18}" required>
             </div>
 
             <div class="form-row">
@@ -369,6 +369,16 @@
 </div>
 
 <script>
+    // NIP: angka saja, max 18 digit
+    const nipInput = document.getElementById('nip');
+    nipInput.addEventListener('input', () => {
+        nipInput.value = nipInput.value.replace(/\D/g, '').slice(0, 18);
+    });
+    nipInput.addEventListener('keydown', e => {
+        const allowed = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab'];
+        if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) e.preventDefault();
+    });
+
     const canvas = document.getElementById('signature');
     const ctx    = canvas.getContext('2d');
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsensiExport;
 use App\Models\Absensi;
 use App\Models\Rapat;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -28,26 +30,46 @@ class AbsensiController extends Controller
         }
 
         $request->validate([
+            'nip'          => 'required|string|max:50',
             'nama'         => 'required|string|max:255',
             'jabatan'      => 'required|string|max:255',
-            'email'        => 'required|email|max:255',
-            'no_hp'        => 'required|string|max:20',
-            'status'       => 'required|in:hadir,telat,sakit,izin',
+            'status'       => 'required|in:hadir,sakit,izin',
             'tanda_tangan' => 'nullable|string',
         ]);
+
+        // Cek duplikat berdasarkan NIP + Nama di rapat yang sama
+        $sudahAbsen = Absensi::where('rapat_id', $rapat->id)
+            ->where('nip', $request->nip)
+            ->where('nama', $request->nama)
+            ->exists();
+
+        if ($sudahAbsen) {
+            return redirect()->route('absensi.sudah-absen', $token);
+        }
 
         Absensi::create([
             'user_id'      => auth()->id(),
             'rapat_id'     => $rapat->id,
             'waktu_scan'   => now(),
-            'status'       => $request->status,
+            'nip'          => $request->nip,
             'nama'         => $request->nama,
             'jabatan'      => $request->jabatan,
-            'email'        => $request->email,
-            'no_hp'        => $request->no_hp,
+            'status'       => $request->status,
             'tanda_tangan' => $request->tanda_tangan,
         ]);
 
         return view('absensi.berhasil');
+    }
+
+    public function sudahAbsen($token)
+    {
+        $rapat = Rapat::where('qr_token', $token)->first();
+
+        return view('absensi.sudah-absen', compact('rapat'));
+    }
+
+    public function export(Rapat $rapat)
+    {
+        return Excel::download(new AbsensiExport($rapat), 'absensi-' . $rapat->id . '.xlsx');
     }
 }
