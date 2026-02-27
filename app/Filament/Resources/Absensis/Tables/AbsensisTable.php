@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables;
 use Filament\Tables\Table;
+use function Laravel\Prompts\search;
 
 class AbsensisTable
 {
@@ -21,16 +22,20 @@ class AbsensisTable
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('no_hp')
-                    ->label('No HP'),
+                Tables\Columns\TextColumn::make('nip')
+                    ->label('NIP')
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('rapat.judul')
-                    ->label('Rapat'),
+                    ->label('Rapat')
+                    ->sortable()
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('waktu_scan')
                     ->label('Waktu Absen')
                     ->dateTime('d M Y H:i:s')
-                    ->timezone('Asia/Jakarta'),
+                    ->timezone('Asia/Jakarta')
+                    ->sortable(),
             ])
             ->filters([
                 //
