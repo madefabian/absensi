@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --green:      #4A6741;
+            --green:      #41ad20;
             --green-pale: #EEF3EC;
             --cream:      #F8F5F0;
             --ink:        #1C1C1C;

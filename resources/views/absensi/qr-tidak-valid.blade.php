@@ -13,7 +13,7 @@
             --muted:      #6B7280;
             --border:     #D9DDD6;
             --white:      #FFFFFF;
-            --red:        #B91C1C;
+            --red:        #d31616;
         }
 
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }

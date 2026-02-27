@@ -18,11 +18,19 @@ class AbsensisTable
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('nip')
+                    ->searchable()
+                    ->sortable(),
 
-                Tables\Columns\TextColumn::make('no_hp')
-                    ->label('No HP'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                ->color(fn ($state) => match (strtolower($state)) {
+                    'hadir' => 'success',
+                    'izin' => 'warning',
+                    'sakit' => 'danger',
+                    default => 'gray',
+                }),
 
                 Tables\Columns\TextColumn::make('rapat.judul')
                     ->label('Rapat'),
