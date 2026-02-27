@@ -7,7 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables;
 use Filament\Tables\Table;
-use function Laravel\Prompts\search;
+use Filament\Tables\Filters\SelectFilter;
 
 class AbsensisTable
 {
@@ -26,12 +26,13 @@ class AbsensisTable
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                ->color(fn ($state) => match (strtolower($state)) {
-                    'hadir' => 'success',
-                    'izin' => 'warning',
-                    'sakit' => 'danger',
-                    default => 'gray',
-                }),
+                    ->color(fn ($state) => match (strtolower($state)) {
+                        'hadir' => 'success',
+                        'izin' => 'warning',
+                        'sakit' => 'danger',
+                        default => 'gray',
+                    }),
+
                 Tables\Columns\TextColumn::make('rapat.judul')
                     ->label('Rapat')
                     ->sortable()
@@ -43,12 +44,21 @@ class AbsensisTable
                     ->timezone('Asia/Jakarta')
                     ->sortable(),
             ])
+
             ->filters([
-                //
+                SelectFilter::make('status')
+                    ->label('Filter Status')
+                    ->options([
+                        'hadir' => 'Hadir',
+                        'izin' => 'Izin',
+                        'sakit' => 'Sakit',
+                    ]),
             ])
+
             ->recordActions([
                 EditAction::make(),
             ])
+
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
