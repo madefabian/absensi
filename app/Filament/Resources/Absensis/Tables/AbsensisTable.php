@@ -19,9 +19,6 @@ class AbsensisTable
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-
                 Tables\Columns\TextColumn::make('nip')
                     ->label('NIP')
                     ->searchable(),
