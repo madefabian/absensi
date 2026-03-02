@@ -28,6 +28,10 @@ class AbsensisTable
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('status')
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('waktu_scan')
                     ->label('Waktu Absen')
                     ->dateTime('d M Y H:i:s')
