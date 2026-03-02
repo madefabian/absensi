@@ -7,7 +7,9 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\DatePicker;
 
 class AbsensisTable
 {
@@ -26,7 +28,7 @@ class AbsensisTable
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn ($state) => match (strtolower($state)) {
+                    ->color(fn($state) => match (strtolower($state)) {
                         'hadir' => 'success',
                         'izin' => 'warning',
                         'sakit' => 'danger',
@@ -35,10 +37,6 @@ class AbsensisTable
 
                 Tables\Columns\TextColumn::make('rapat.judul')
                     ->label('Rapat')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('status')
                     ->sortable()
                     ->searchable(),
 
@@ -51,14 +49,36 @@ class AbsensisTable
 
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Filter Status')
+                    ->label('Status')
                     ->options([
                         'hadir' => 'Hadir',
                         'izin' => 'Izin',
                         'sakit' => 'Sakit',
+                        'alpha' => 'Alpha',
                     ]),
-            ])
 
+
+                SelectFilter::make('rapat_id')
+                    ->label('Rapat')
+                    ->relationship('rapat', 'judul'),
+
+                Filter::make('tanggal')
+                    ->form([
+                        DatePicker::make('from')->label('Dari Tanggal'),
+                        DatePicker::make('until')->label('Sampai Tanggal'),
+                    ])
+                    ->query(function ($query, array $data) {
+                        return $query
+                            ->when(
+                                $data['from'],
+                                fn($query) => $query->whereDate('waktu_scan', '>=', $data['from'])
+                            )
+                            ->when(
+                                $data['until'],
+                                fn($query) => $query->whereDate('waktu_scan', '<=', $data['until'])
+                            );
+                    }),
+            ])
             ->recordActions([
                 EditAction::make(),
             ])
