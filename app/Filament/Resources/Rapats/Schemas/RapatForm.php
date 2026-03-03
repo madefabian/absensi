@@ -47,7 +47,7 @@ class RapatForm
                 ->columnSpanFull(),
 
             Forms\Components\Toggle::make('qr_status')
-                ->label('🔲 Aktifkan QR Code Absensi')
+                ->label('Aktifkan QR Code Absensi')
                 ->helperText('QR code akan digunakan untuk scan absensi peserta saat rapat')
                 ->onColor('success')
                 ->offColor('danger')
