@@ -54,7 +54,6 @@ class AbsensisTable
                         'hadir' => 'Hadir',
                         'izin' => 'Izin',
                         'sakit' => 'Sakit',
-                        'alpha' => 'Alpha',
                     ]),
 
 
