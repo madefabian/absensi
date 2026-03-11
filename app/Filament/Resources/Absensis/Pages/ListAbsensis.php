@@ -5,7 +5,7 @@ namespace App\Filament\Resources\Absensis\Pages;
 use App\Filament\Resources\Absensis\AbsensiResource;
 use App\Filament\Exports\AbsensiExporter;
 use Filament\Actions\CreateAction;
-use Filament\Actions\ExportAction;
+//use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAbsensis extends ListRecords
@@ -16,9 +16,18 @@ class ListAbsensis extends ListRecords
     {
         return [
             CreateAction::make(),
-            ExportAction::make()
-                ->exporter(AbsensiExporter::class)
-                ->label('Export Absensi'),
+            //ExportAction::make()
+                //->exporter(AbsensiExporter::class)
+                //->label('Export Absensi')
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+{
+    return [
+        \App\Filament\Resources\Absensis\Widgets\AbsensiStats::make([
+            'query' => $this->getFilteredTableQuery(),
+            ]),
         ];
     }
 }

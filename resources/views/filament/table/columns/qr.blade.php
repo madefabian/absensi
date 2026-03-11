@@ -19,8 +19,10 @@ $url = url('/absensi/' . $record->qr_token);
 $image = (new QRCode($options))->render($url);
 @endphp
 
-<img
-    src="{{ $image }}"
-    alt="QR Code"
-    style="width:80px;height:80px"
-/>
+<a href="{{ route('rapat.undangan', $getRecord()->id) }}">
+    <img
+        src="{{ $image }}"
+        alt="QR Code"
+        style="width:100px;height:100px;cursor:pointer;"
+    />
+</a>

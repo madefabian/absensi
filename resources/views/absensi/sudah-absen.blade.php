@@ -42,7 +42,7 @@
         }
 
         .card-header {
-            background: #B45309;
+            background: #b40f09;
             padding: 36px 40px 32px;
             position: relative;
         }
