@@ -303,7 +303,7 @@
             Pastikan semua data yang diisi sudah benar sebelum mengirim
         </div>
 
-        <form method="POST" id="absenForm">
+        <form method="POST" action="{{ route('absensi.store', $rapat->qr_token) }}" id="absenForm">
             @csrf
 
             <p class="section-label">Data Pegawai</p>
@@ -324,13 +324,10 @@
                 </div>
             </div>
 
-            <p class="section-label" style="margin-top: 4px;">Kehadiran</p>
-
-             <div class="form-row">
-                <div class="form-group">
-                    <label for="unit_kerja">Unit Kerja <span class="req">*</span></label>
-                    <input type="text" id="unit_kerja" name="unit_kerja" placeholder="Unit kerja" required>
-                </div>
+            <div class="form-group">
+                <label for="unit_kerja">Unit Kerja <span class="req">*</span></label>
+                <input type="text" id="unit_kerja" name="unit_kerja" placeholder="Contoh: Bagian Kepegawaian" required>
+            </div>
 
             <div class="sig-section">
                 <label>Tanda Tangan <span class="req">*</span></label>
