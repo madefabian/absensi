@@ -303,7 +303,7 @@
             Pastikan semua data yang diisi sudah benar sebelum mengirim
         </div>
 
-        <form method="POST" id="absenForm">
+        <form method="POST" action="{{ route('absensi.store', $rapat->qr_token) }}" id="absenForm">
             @csrf
 
             <p class="section-label">Data Pegawai</p>

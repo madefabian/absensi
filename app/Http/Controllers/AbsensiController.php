@@ -33,7 +33,7 @@ class AbsensiController extends Controller
             'nip'          => 'required|string|max:50',
             'nama'         => 'required|string|max:255',
             'jabatan'      => 'required|string|max:255',
-            'status'       => 'required|in:hadir,sakit,izin',
+            'unit_kerja'   => 'required|string|max:50',
             'tanda_tangan' => 'nullable|string',
         ]);
 
@@ -54,7 +54,7 @@ class AbsensiController extends Controller
             'nip'          => $request->nip,
             'nama'         => $request->nama,
             'jabatan'      => $request->jabatan,
-            'status'       => $request->status,
+            'unit_kerja'       => $request->unit_kerja,
             'tanda_tangan' => $request->tanda_tangan,
         ]);
 

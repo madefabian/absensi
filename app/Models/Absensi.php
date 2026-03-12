@@ -15,7 +15,7 @@ class Absensi extends Model
         'nama',
         'jabatan',
         'waktu_scan',
-        'status',
+        'unit_kerja',
         'tanda_tangan',
     ];
 
