@@ -133,7 +133,7 @@
             </svg>
         </div>
 
-        <p class="message">Terima kasih telah melakukan absensi</p>
+        <p class="message">Terima kasih telah mengisi absensi</p>
         <p class="sub-message">Data kehadiran Anda telah berhasil dicatat dalam sistem.</p>
 
     </div>

@@ -54,7 +54,7 @@ class AbsensiController extends Controller
             'nip'          => $request->nip,
             'nama'         => $request->nama,
             'jabatan'      => $request->jabatan,
-            'unit_kerja'       => $request->unit_kerja,
+            'unit_kerja'   => $request->unit_kerja,
             'tanda_tangan' => $request->tanda_tangan,
         ]);
 

@@ -333,7 +333,7 @@
                 <label>Tanda Tangan <span class="req">*</span></label>
                 <canvas id="signature"></canvas>
                 <input type="hidden" name="tanda_tangan" id="tanda_tangan">
-                <p class="sig-hint">Tanda tangani di area di atas menggunakan kursor atau sentuhan</p>
+                <p class="sig-hint">Tanda tangani area di atas menggunakan kursor atau sentuhan</p>
             </div>
 
             <div class="actions">
