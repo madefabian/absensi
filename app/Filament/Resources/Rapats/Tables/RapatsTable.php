@@ -47,7 +47,7 @@ class RapatsTable
                     ->icon('heroicon-o-map-pin'),
 
                 IconColumn::make('qr_status')
-                    ->label('🔲 QR')
+                    ->label('QR')
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')

@@ -51,9 +51,9 @@ class AbsensiStats extends BaseWidget
         return [
             Stat::make('Total Rapat', $rapatQuery->count()),
             Stat::make('Total Data', $query->count()),
-            Stat::make('Hadir', (clone $query)->where('status', 'hadir')->count()),
-            Stat::make('Izin', (clone $query)->where('status', 'izin')->count()),
-            Stat::make('Sakit', (clone $query)->where('status', 'sakit')->count()),
+            // Stat::make('Hadir', (clone $query)->where('status', 'hadir')->count()),
+            // Stat::make('Izin', (clone $query)->where('status', 'izin')->count()),
+            // Stat::make('Sakit', (clone $query)->where('status', 'sakit')->count()),
         ];
     }
 }
