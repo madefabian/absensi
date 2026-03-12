@@ -11,7 +11,6 @@ class AbsensiStats extends BaseWidget
 {
     public ?array $filters = null;
 
-    // ✅ Listen event dari table saat filter berubah
     protected function getListeners(): array
     {
         return [
@@ -31,29 +30,35 @@ class AbsensiStats extends BaseWidget
 
         $filters = $this->filters ?? [];
 
-        if (!empty($filters['status'])) {
-            $query->where('status', $filters['status']);
+        // Filter Status
+        $status = $filters['status']['value'] ?? null;
+        if (!empty($status)) {
+            $query->where('status', $status);
         }
 
-        if (!empty($filters['rapat_id'])) {
-            $query->where('rapat_id', $filters['rapat_id']);
-            $rapatQuery->where('id', $filters['rapat_id']);
+        // Filter Rapat
+        $rapatId = $filters['rapat_id']['value'] ?? null;
+        if (!empty($rapatId)) {
+            $query->where('rapat_id', $rapatId);
+            $rapatQuery->where('id', $rapatId);
         }
 
-        if (!empty($filters['tanggal']['from'])) {
-            $query->whereDate('waktu_scan', '>=', $filters['tanggal']['from']);
+        // Filter Tanggal
+        $from = $filters['tanggal']['from'] ?? null;
+        $until = $filters['tanggal']['until'] ?? null;
+
+        if (!empty($from)) {
+            $query->whereDate('waktu_scan', '>=', $from);
         }
 
-        if (!empty($filters['tanggal']['until'])) {
-            $query->whereDate('waktu_scan', '<=', $filters['tanggal']['until']);
+        if (!empty($until)) {
+            $query->whereDate('waktu_scan', '<=', $until);
         }
 
         return [
             Stat::make('Total Rapat', $rapatQuery->count()),
             Stat::make('Total Data', $query->count()),
-            Stat::make('Hadir', (clone $query)->where('status', 'hadir')->count()),
-            Stat::make('Izin', (clone $query)->where('status', 'izin')->count()),
-            Stat::make('Sakit', (clone $query)->where('status', 'sakit')->count()),
+            
         ];
     }
 }

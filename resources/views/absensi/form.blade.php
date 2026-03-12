@@ -326,17 +326,11 @@
 
             <p class="section-label" style="margin-top: 4px;">Kehadiran</p>
 
-            <div class="form-group">
-                <label for="status">Status Kehadiran <span class="req">*</span></label>
-                <div class="select-wrap">
-                    <select id="status" name="status" required>
-                        <option value="" disabled selected>Pilih status kehadiran</option>
-                        <option value="hadir">Hadir</option>
-                        <option value="sakit">Sakit</option>
-                        <option value="izin">Izin</option>
-                    </select>
+             <div class="form-row">
+                <div class="form-group">
+                    <label for="unit_kerja">Unit Kerja <span class="req">*</span></label>
+                    <input type="text" id="unit_kerja" name="unit_kerja" placeholder="Unit kerja" required>
                 </div>
-            </div>
 
             <div class="sig-section">
                 <label>Tanda Tangan <span class="req">*</span></label>
