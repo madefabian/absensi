@@ -25,15 +25,9 @@ class AbsensisTable
                     ->label('NIP')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
-                    ->badge()
-                    ->color(fn($state) => match (strtolower($state)) {
-                        'hadir' => 'success',
-                        'izin' => 'warning',
-                        'sakit' => 'danger',
-                        default => 'gray',
-                    }),
+                Tables\Columns\TextColumn::make('unit_kerja')
+                    ->searchable()
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('rapat.judul')
                     ->label('Rapat')
@@ -48,15 +42,6 @@ class AbsensisTable
             ])
 
             ->filters([
-                SelectFilter::make('status')
-                    ->label('Status')
-                    ->options([
-                        'hadir' => 'Hadir',
-                        'izin' => 'Izin',
-                        'sakit' => 'Sakit',
-                    ]),
-
-
                 SelectFilter::make('rapat_id')
                     ->label('Rapat')
                     ->relationship('rapat', 'judul'),
@@ -82,7 +67,7 @@ class AbsensisTable
                 EditAction::make(),
             ])
 
-            ->toolbarActions([
+            ->toolbarActions(actions: [
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
